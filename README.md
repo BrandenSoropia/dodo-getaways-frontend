@@ -2,6 +2,8 @@
 
 Find your next island escape! Explore and rate islands made by Animal Crossing: New Horizons players around the world. Build using React ⚛️
 
+Follow progress and roadmap here: https://trello.com/b/iAFupku3/dodo-getaways
+
 # Local Setup:
 
 1. Have the latest [Node](https://nodejs.org/en/) and [yarn](https://classic.yarnpkg.com/en/docs/install#mac-stable) installed.
