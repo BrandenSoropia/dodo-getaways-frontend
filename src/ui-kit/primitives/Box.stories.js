@@ -2,7 +2,7 @@ import React from "react";
 import Box from "./Box";
 
 export default {
-  title: "Box",
+  title: `ui-kit/primitives/Box`,
   component: Box,
 };
 
