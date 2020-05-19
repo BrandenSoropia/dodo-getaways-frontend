@@ -14,6 +14,7 @@ export const GenericBox = () => (
     borderColor="darkGrey"
     borderStyle="solid"
   >
-    Hello! I'm a boxed styled with styled-systems + styled-components theme!
+    Hello! I&apos;m a boxed styled with styled-systems + styled-components
+    theme!
   </Box>
 );
