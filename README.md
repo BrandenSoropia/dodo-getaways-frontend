@@ -2,7 +2,7 @@
 
 Find your next island escape! Explore and rate islands made by Animal Crossing: New Horizons players around the world. Build using React ⚛️
 
-Follow progress and roadmap here: https://trello.com/b/iAFupku3/dodo-getaways
+Follow progress and road map here: https://trello.com/b/iAFupku3/dodo-getaways
 
 # Local Setup:
 
@@ -10,3 +10,5 @@ Follow progress and roadmap here: https://trello.com/b/iAFupku3/dodo-getaways
 2. Clone this repo locally. Navigate to it in terminal.
 3. Install dependencies by running `yarn`.
 4. Run `yarn start` to run the app in development mode. It should auto open in browser, but you can also go to [http://localhost:3000](http://localhost:3000).
+
+This Project comes with some AirBnB's ESLint rules + Prettier + VS Code configurations to help things be consistent and clean! To get them running, all you need to do is install the ESLint and Prettier extensions in VS Code (recommended in project extensions) 🙌
