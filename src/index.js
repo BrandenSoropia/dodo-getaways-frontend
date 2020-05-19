@@ -1,19 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import { ThemeProvider } from "styled-components";
+import { Provider } from "react-redux";
+import { IntlProvider } from "react-intl";
 import App from "./App";
 import store from "./app/store";
-import { Provider } from "react-redux";
-import { ThemeProvider } from "styled-components";
 import theme from "./ui-kit/theme";
+import messages from "./i18n";
+
+const userLocale = window.navigator.userLanguage || window.navigator.language;
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </ThemeProvider>
+    <IntlProvider defaultLocale="en-US" locale={userLocale} messages={messages[userLocale]}>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </ThemeProvider>
+    </IntlProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

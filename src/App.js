@@ -1,7 +1,12 @@
 import React from "react";
+import { FormattedMessage } from "react-intl";
 
 function App() {
-  return <div>Hi</div>;
+  return (
+    <div>
+      <FormattedMessage id="HELLO" />
+    </div>
+  );
 }
 
 export default App;

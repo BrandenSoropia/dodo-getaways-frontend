@@ -1,4 +1,5 @@
 import React from "react";
+import { FormattedMessage } from "react-intl";
 import Box from "./Box";
 
 export default {
@@ -14,7 +15,6 @@ export const GenericBox = () => (
     borderColor="darkGrey"
     borderStyle="solid"
   >
-    Hello! I&apos;m a boxed styled with styled-systems + styled-components
-    theme!
+    <FormattedMessage id="TEST_STRING" />
   </Box>
 );
