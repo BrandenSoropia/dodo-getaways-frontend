@@ -29,7 +29,15 @@ const lineHeights = {
   heading1: "2",
 };
 
+const space = {
+  none: "0",
+  half: "4px",
+  one: "8px",
+  two: "16px",
+};
+
 const theme = {
+  space,
   colors,
   radii,
   borderWidths,

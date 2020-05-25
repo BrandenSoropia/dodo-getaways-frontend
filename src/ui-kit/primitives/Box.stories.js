@@ -9,7 +9,7 @@ export default {
 
 export const GenericBox = () => (
   <Box
-    padding={2}
+    padding="two"
     borderRadius="round"
     borderWidth="thin"
     borderColor="darkGrey"
