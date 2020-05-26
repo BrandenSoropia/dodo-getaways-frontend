@@ -1,4 +1,4 @@
 {
   "TEST_STRING": "Hello! I'm a boxed styled with styled-systems + styled-components theme using react-intl!",
-  "HELLO": "Hello"
+  "EXPLORE_ISLAND_NAME": "<b>Explore</b> {islandName}"
 }

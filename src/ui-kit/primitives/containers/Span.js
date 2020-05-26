@@ -10,7 +10,7 @@ import {
   shadow,
 } from "styled-system";
 
-const Box = styled.div`
+const Span = styled.span`
   ${color}
   ${space}
   ${color}
@@ -22,4 +22,4 @@ const Box = styled.div`
   ${shadow}
 `;
 
-export default Box;
+export default Span;

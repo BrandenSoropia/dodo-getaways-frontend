@@ -3,6 +3,7 @@ const colors = {
   white: "#FFFFFF",
   mustard: "#EDD340",
   darkGrey: "#695A41",
+  salmon: "#ff5d5d",
 };
 
 const radii = {
@@ -20,12 +21,12 @@ const fontSizes = {
 };
 
 const fontWeights = {
-  regular: "400",
-  bold: "600",
+  regular: "500",
+  bold: "700",
 };
 
 const lineHeights = {
-  body: "1.5",
+  body: "1.75",
   heading1: "2",
 };
 
@@ -34,6 +35,12 @@ const space = {
   half: "4px",
   one: "8px",
   two: "16px",
+  four: "32px",
+};
+
+const breakpoints = {
+  phone: "420px",
+  tablet: "1024px",
 };
 
 const theme = {
@@ -44,6 +51,7 @@ const theme = {
   fontSizes,
   fontWeights,
   lineHeights,
+  breakpoints,
 };
 
 export default theme;

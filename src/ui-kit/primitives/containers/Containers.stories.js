@@ -3,7 +3,7 @@ import { FormattedMessage } from "react-intl";
 import Box from "./Box";
 
 export default {
-  title: `ui-kit/primitives/Box`,
+  title: `ui-kit/primitives/containers`,
   component: Box,
 };
 

@@ -8,8 +8,11 @@ export default {
 
 export const GenericTextHierarchy = () => (
   <div>
+    <Body padding={2} fontSize="body">
+      I&apos;m a regular Body
+    </Body>
     <Body padding={2} fontSize="body" fontWeight="bold">
-      I&apos;m a Body
+      I&apos;m a bold Body
     </Body>
     <HeadingOne padding={2}>Hello! I&apos;m HeadingOne!</HeadingOne>
   </div>
