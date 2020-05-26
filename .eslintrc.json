@@ -8,7 +8,8 @@
         "endOfLine": "auto"
       }
     ],
-    "react/jsx-filename-extension": "off"
+    "react/jsx-filename-extension": "off",
+    "import/no-unresolved": [2, { "ignore": ["ui-kit", "^common/"] }]
   },
   "globals": {
     "window": "readonly",
