@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Flex, Image, Modal } from "ui-kit";
-import { isEscapePressed } from "common/keyboard-helpers";
+import { isEscapePressed, isEnterPressed } from "common/keyboard-helpers";
 
 const InteractiveImage = styled(Image)`
-  pointer: cursor;
+  cursor: pointer;
 `;
 
 /**
@@ -36,9 +36,9 @@ const ImageGallery = ({ images }) => {
             setSelectedImageIdx(idx);
           }}
           onKeyPress={(e) => {
-            const code = e.keyCode || e.which;
+            e.stopPropagation();
 
-            if (code === 13) {
+            if (isEnterPressed(e)) {
               setSelectedImageIdx(idx);
             }
           }}
@@ -50,14 +50,8 @@ const ImageGallery = ({ images }) => {
       ))}
       <Modal
         isActive={selectedImageIdx !== null}
-        onBackdropClick={() => {
+        handleClose={() => {
           setSelectedImageIdx(null);
-        }}
-        onKeyPress={(e) => {
-          console.log(e.key);
-          if (isEscapePressed(e)) {
-            setSelectedImageIdx(null);
-          }
         }}
       >
         {selectedImageIdx !== null && (

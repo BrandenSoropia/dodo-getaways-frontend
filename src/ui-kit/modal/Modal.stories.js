@@ -1,5 +1,4 @@
-/* eslint-disable no-alert */
-import React from "react";
+import React, { useState } from "react";
 import { Box, Body } from "ui-kit";
 import Modal from "./Modal";
 
@@ -8,21 +7,29 @@ export default {
   component: Modal,
 };
 
-export const simpleModal = () => (
-  <Box
-    width="100vw"
-    height="100vh"
-    onClick={() => {
-      alert("You shouldn't see me!");
-    }}
-  >
-    <Modal
-      onBackdropClick={() => {
-        alert("You triggered the modal's onBackdropClick! Dismiss to make the modal disappear!");
-      }}
-      isInitiallyActive
-    >
-      <Body>Click me!</Body>
-    </Modal>
-  </Box>
-);
+const ModalWrapper = () => {
+  const [isActive, setIsActive] = useState(true);
+
+  return (
+    <Box width="100vw" height="100vh" onClick={() => {}}>
+      <button
+        type="button"
+        onClick={() => {
+          setIsActive(true);
+        }}
+      >
+        Open Modal
+      </button>
+      <Modal
+        handleClose={() => {
+          setIsActive(false);
+        }}
+        isActive={isActive}
+      >
+        <Body>Click me to close!</Body>
+      </Modal>
+    </Box>
+  );
+};
+
+export const simpleModal = () => <ModalWrapper />;

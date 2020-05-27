@@ -5,6 +5,8 @@ const KEYS = {
   ESCAPE: "Escape",
 };
 
+export const isEnterPressed = (e) => [KEYS.ENTER].includes(e.key);
+
 /**
  * @function isEscapePressed returns true if given KeyboardEvent's key is a valid
  * escape key.
@@ -12,5 +14,3 @@ const KEYS = {
  * @return {boolean}
  */
 export const isEscapePressed = (e) => [KEYS.ESC, KEYS.ESCAPE].includes(e.key);
-
-export default KEYS;

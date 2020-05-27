@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { Box } from "ui-kit";
+import { isEscapePressed } from "common/keyboard-helpers";
 
-const Modal = ({ children, onBackdropClick, isActive }) => {
+const Modal = ({ children, isActive, handleClose }) => {
+  /**
+   * This is some magic that I cooked up to make the Escape key close the modal.
+   * I was hoping this would work without the negative `tabIndex`, but for some
+   * reason it needs it to actually pull the index from whatever was previously
+   * focused on before the modal was opened!
+   */
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (isActive) {
+      containerRef.current.focus();
+    }
+  }, [isActive, containerRef]);
+
   return (
     <Box
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...(isActive && { tabIndex: "-1" })}
+      ref={containerRef}
       position="fixed"
       top="0"
       right="0"
@@ -17,8 +35,14 @@ const Modal = ({ children, onBackdropClick, isActive }) => {
       display={isActive ? "block" : "none"}
       onClick={(e) => {
         e.stopPropagation();
+        handleClose();
+      }}
+      onKeyDown={(e) => {
+        e.stopPropagation();
 
-        onBackdropClick();
+        if (isEscapePressed(e)) {
+          handleClose();
+        }
       }}
     >
       {children}
@@ -28,13 +52,13 @@ const Modal = ({ children, onBackdropClick, isActive }) => {
 
 Modal.propTypes = {
   children: PropTypes.node,
-  onBackdropClick: PropTypes.func,
+  handleClose: PropTypes.func,
   isActive: PropTypes.bool,
 };
 
 Modal.defaultProps = {
   children: null,
-  onBackdropClick: () => {},
+  handleClose: () => {},
   isActive: false,
 };
 
