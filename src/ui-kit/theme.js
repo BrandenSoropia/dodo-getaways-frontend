@@ -4,6 +4,7 @@ const colors = {
   mustard: "#EDD340",
   darkGrey: "#695A41",
   salmon: "#ff5d5d",
+  lightGrey: "#777777",
 };
 
 const radii = {
@@ -43,6 +44,9 @@ const breakpoints = {
   tablet: "1024px",
 };
 
+const zIndices = {
+  modal: 9999,
+};
 const theme = {
   space,
   colors,
@@ -52,6 +56,7 @@ const theme = {
   fontWeights,
   lineHeights,
   breakpoints,
+  zIndices,
 };
 
 export default theme;
