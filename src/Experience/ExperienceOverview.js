@@ -27,7 +27,12 @@ const ExperienceOverview = ({ islandName, images, catchPhrase, description }) =>
 
 ExperienceOverview.propTypes = {
   islandName: PropTypes.string.isRequired,
-  images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      src: PropTypes.string,
+      altText: PropTypes.string,
+    })
+  ).isRequired,
   catchPhrase: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
 };
