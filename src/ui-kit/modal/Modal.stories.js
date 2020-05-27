@@ -18,8 +18,9 @@ export const simpleModal = () => (
   >
     <Modal
       onBackdropClick={() => {
-        alert("You triggered the modal's onBackdropClick!");
+        alert("You triggered the modal's onBackdropClick! Dismiss to make the modal disappear!");
       }}
+      isInitiallyActive
     >
       <Body>Click me!</Body>
     </Modal>
