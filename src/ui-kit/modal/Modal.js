@@ -1,7 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 import { Box } from "ui-kit";
 import { isEscapePressed } from "common/keyboard-helpers";
+
+const Backdrop = styled(Box)`
+  cursor: pointer;
+`;
 
 const Modal = ({ children, isActive, handleClose }) => {
   /**
@@ -19,7 +24,8 @@ const Modal = ({ children, isActive, handleClose }) => {
   }, [isActive, containerRef]);
 
   return (
-    <Box
+    <Backdrop
+      data-testid="modal-backdrop"
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...(isActive && { tabIndex: "-1" })}
       ref={containerRef}
@@ -46,7 +52,7 @@ const Modal = ({ children, isActive, handleClose }) => {
       }}
     >
       {children}
-    </Box>
+    </Backdrop>
   );
 };
 

@@ -4,10 +4,10 @@ import "./index.css";
 import { ThemeProvider } from "styled-components";
 import { Provider } from "react-redux";
 import { IntlProvider } from "react-intl";
+import theme from "ui-kit/theme";
+import messages from "i18n";
 import App from "./App";
 import store from "./app/store";
-import theme from "./ui-kit/theme";
-import messages from "./i18n";
 
 const userLocale = window.navigator.userLanguage || window.navigator.language;
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Flex, Image, Modal } from "ui-kit";
-import { isEscapePressed, isEnterPressed } from "common/keyboard-helpers";
+import { isEnterPressed } from "common/keyboard-helpers";
 
 const InteractiveImage = styled(Image)`
   cursor: pointer;

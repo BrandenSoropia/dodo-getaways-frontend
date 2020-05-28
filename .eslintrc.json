@@ -11,7 +11,7 @@
       }
     ],
     "react/jsx-filename-extension": "off",
-    "import/no-unresolved": [2, { "ignore": ["ui-kit", "^common/"] }]
+    "import/no-unresolved": [2, { "ignore": ["ui-kit", "^common/", "app", "i18n", "test-utils"] }]
   },
   "globals": {
     "window": "readonly",
