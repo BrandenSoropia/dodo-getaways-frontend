@@ -31,34 +31,72 @@ const ImageGallery = ({ images }) => {
   const [selectedImageIdx, setSelectedImageIdx] = useState(null);
   const [rect, ref] = useClientRect();
 
-  const imageThreshold =
-    (rect?.width || 0) > breakpoints.phone
-      ? DESKTOP_MORE_PHOTOS_THRESHOLD
-      : MOBILE_MORE_PHOTOS_THRESHOLD;
+  const isMobileDimensionDevice = (rect?.width || 0) <= breakpoints.phone;
+  const imageThreshold = isMobileDimensionDevice
+    ? DESKTOP_MORE_PHOTOS_THRESHOLD
+    : MOBILE_MORE_PHOTOS_THRESHOLD;
 
   const showSeeAllImagesButton = images.length > imageThreshold;
 
   return (
     <Flex ref={ref} position="relative" as="section" marginBottom={{ _: "two", tablet: "four" }}>
-      {images.map(({ src, altText }, idx) => (
+      {isMobileDimensionDevice && (
         <InteractiveImage
           tabIndex="0"
           onClick={() => {
-            setSelectedImageIdx(idx);
+            setSelectedImageIdx(0);
           }}
           onKeyPress={(e) => {
             e.stopPropagation();
 
             if (isEnterPressed(e)) {
-              setSelectedImageIdx(idx);
+              setSelectedImageIdx(0);
             }
           }}
           borderRadius="round"
-          key={`image-gallery-image$-${src}`}
-          src={src}
-          alt={altText}
+          key={`image-gallery-image$-${images[0]?.src}`}
+          src={images[0]?.src}
+          alt={images[0]?.altText}
         />
-      ))}
+      )}
+      {!isMobileDimensionDevice && (
+        <Flex>
+          {images.map(({ src, altText }, idx) => (
+            <InteractiveImage
+              tabIndex="0"
+              onClick={() => {
+                setSelectedImageIdx(idx);
+              }}
+              onKeyPress={(e) => {
+                e.stopPropagation();
+
+                if (isEnterPressed(e)) {
+                  setSelectedImageIdx(idx);
+                }
+              }}
+              borderRadius="round"
+              key={`image-gallery-image$-${src}`}
+              src={src}
+              alt={altText}
+            />
+          ))}
+        </Flex>
+      )}
+      {showSeeAllImagesButton && (
+        <Box
+          backgroundColor="darkGrey"
+          position="absolute"
+          left="0"
+          bottom="0"
+          padding={{ _: "one", phone: "two" }}
+          margin="one"
+          borderRadius="pill"
+        >
+          <Body color="white">
+            <FormattedMessage id="SEE_ALL_PHOTOS" />
+          </Body>
+        </Box>
+      )}
       <Modal
         isActive={selectedImageIdx !== null}
         handleClose={() => {
@@ -76,21 +114,6 @@ const ImageGallery = ({ images }) => {
           </Flex>
         )}
       </Modal>
-      {showSeeAllImagesButton && (
-        <Box
-          backgroundColor="darkGrey"
-          position="absolute"
-          left="0"
-          bottom="0"
-          padding={{ _: "one", phone: "two" }}
-          margin="one"
-          borderRadius="pill"
-        >
-          <Body color="white">
-            <FormattedMessage id="SEE_ALL_PHOTOS" />
-          </Body>
-        </Box>
-      )}
     </Flex>
   );
 };

@@ -61,6 +61,7 @@ const pixelValueBreakpoints = Object.keys(breakpoints).reduce(
 const zIndices = {
   modal: 9999,
 };
+
 const theme = {
   space,
   colors,
