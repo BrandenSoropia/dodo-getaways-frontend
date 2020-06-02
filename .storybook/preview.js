@@ -45,6 +45,22 @@ addParameters({
         },
         type: "tablet",
       },
+      {
+        name: "Desktop",
+        styles: {
+          width: "1280px",
+          height: "800px",
+        },
+        type: "desktop",
+      },
+      {
+        name: "Responsive",
+        styles: {
+          width: "100%",
+          height: "100%",
+        },
+        type: "desktop",
+      },
     ],
   },
 });

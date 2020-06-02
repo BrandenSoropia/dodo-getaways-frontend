@@ -3,8 +3,8 @@ import Text from "./Text";
 
 const Body = styled(Text).attrs({
   as: "p",
-  fontSize: "body",
-  lineHeight: "body",
+  fontSize: { _: "bodyMobile", phone: "body" },
+  lineHeight: { _: "bodyMobile", phone: "body" },
 })``;
 
 export default Body;

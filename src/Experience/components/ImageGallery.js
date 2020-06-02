@@ -1,34 +1,45 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { Flex, Image, Modal } from "ui-kit";
+import { Box, Flex, Image, Modal, Body, breakpoints } from "ui-kit";
+import { useClientRect } from "common/hooks";
+import { FormattedMessage } from "react-intl";
 import { isEnterPressed } from "common/keyboard-helpers";
 
 const InteractiveImage = styled(Image)`
   cursor: pointer;
 `;
 
+const DESKTOP_MORE_PHOTOS_THRESHOLD = 3;
+const MOBILE_MORE_PHOTOS_THRESHOLD = 1;
+
 /**
- * Desktop: Show collage
+ * Clicking/tab navigation and keyboard "Enter" button press to simulate clicking image.
+ *
+ * Desktop: Collage Layout
  * - If only one image, fill gallery with it only.
  * - If 2 images split into 2 sections: left (main) one is 60% width, right is 40% full with height
  * - if 3 images split into 2 sections: left (main) one is 60% width, right is 40% where
  *   right section is split horizontally into 2 even halves.
+ * - If 4 images, show "See all photos" button. On click, opens gallery.
  *
- * Mobile/Table: Show single image and open gallery in pop
- *
- * On image click open carousel of all images.
- *
- * Handles tab navigation and keyboard "Enter" button press to select images.
+ * Mobile/Tablet:
+ * - IF only one image, show single image
+ * - If more than one, show "See all photos" button. On click, opens gallery.
  */
-
-// TODO: Focus on modal when opened
-// TODO: close on escape
 const ImageGallery = ({ images }) => {
   const [selectedImageIdx, setSelectedImageIdx] = useState(null);
+  const [rect, ref] = useClientRect();
+
+  const imageThreshold =
+    (rect?.width || 0) > breakpoints.phone
+      ? DESKTOP_MORE_PHOTOS_THRESHOLD
+      : MOBILE_MORE_PHOTOS_THRESHOLD;
+
+  const showSeeAllImagesButton = images.length > imageThreshold;
 
   return (
-    <Flex as="section" marginBottom={{ _: "two", tablet: "four" }}>
+    <Flex ref={ref} position="relative" as="section" marginBottom={{ _: "two", tablet: "four" }}>
       {images.map(({ src, altText }, idx) => (
         <InteractiveImage
           tabIndex="0"
@@ -65,6 +76,21 @@ const ImageGallery = ({ images }) => {
           </Flex>
         )}
       </Modal>
+      {showSeeAllImagesButton && (
+        <Box
+          backgroundColor="darkGrey"
+          position="absolute"
+          left="0"
+          bottom="0"
+          padding={{ _: "one", phone: "two" }}
+          margin="one"
+          borderRadius="pill"
+        >
+          <Body color="white">
+            <FormattedMessage id="SEE_ALL_PHOTOS" />
+          </Body>
+        </Box>
+      )}
     </Flex>
   );
 };

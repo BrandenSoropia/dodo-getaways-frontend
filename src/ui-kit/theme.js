@@ -2,13 +2,14 @@ const colors = {
   blue: "#1B97D9",
   white: "#FFFFFF",
   mustard: "#EDD340",
-  darkGrey: "#695A41",
+  darkGrey: "#333333",
   salmon: "#ff5d5d",
   lightGrey: "#777777",
 };
 
 const radii = {
   round: "3px",
+  pill: "100px",
 };
 
 const borderWidths = {
@@ -17,18 +18,20 @@ const borderWidths = {
 
 const fontSizes = {
   body: "1rem",
+  bodyMobile: "0.75rem",
   heading1: "2rem",
   heading2: "1.5rem",
+};
+
+const lineHeights = {
+  body: "1.75",
+  bodyMobile: "1",
+  heading1: "2",
 };
 
 const fontWeights = {
   regular: "500",
   bold: "700",
-};
-
-const lineHeights = {
-  body: "1.75",
-  heading1: "2",
 };
 
 const space = {
@@ -39,10 +42,21 @@ const space = {
   four: "32px",
 };
 
-const breakpoints = {
-  phone: "420px",
-  tablet: "1024px",
+// Needed in case comparing breakpoints without `px`
+export const breakpoints = {
+  phone: 420,
+  tablet: 1024,
+  desktop: 1280,
 };
+
+// Needed to use `px` for design system
+const pixelValueBreakpoints = Object.keys(breakpoints).reduce(
+  (pixelBreakpoints, key) => ({
+    ...pixelBreakpoints,
+    [key]: `${breakpoints[key]}px`,
+  }),
+  {}
+);
 
 const zIndices = {
   modal: 9999,
@@ -55,7 +69,7 @@ const theme = {
   fontSizes,
   fontWeights,
   lineHeights,
-  breakpoints,
+  breakpoints: pixelValueBreakpoints,
   zIndices,
 };
 
