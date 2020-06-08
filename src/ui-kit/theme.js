@@ -18,14 +18,15 @@ const borderWidths = {
 
 const fontSizes = {
   body: "1rem",
-  bodyMobile: "0.75rem",
+  bodyMobile: "1.2rem",
   heading1: "2rem",
+  heading1Mobile: "1.5rem",
   heading2: "1.5rem",
 };
 
 const lineHeights = {
   body: "1.75",
-  bodyMobile: "1",
+  bodyMobile: "1.5",
   heading1: "2",
 };
 

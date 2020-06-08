@@ -17,7 +17,7 @@ const ExperienceOverview = ({ islandName, images, catchPhrase, description }) =>
         />
       </HeadingOne>
       <ImageGallery images={images} />
-      <Section>
+      <Section paddingX="one">
         <HeadingOne marginBottom="one">{catchPhrase}</HeadingOne>
         <Body>{description}</Body>
       </Section>

@@ -3,11 +3,14 @@ import Text from "./Text";
 
 const HeadingOne = styled(Text).attrs({
   as: "h1",
-  fontSize: "heading1",
+  fontSize: {
+    _: "heading1Mobile",
+    phone: "heading1",
+  },
   fontWeight: "bold",
   lineHeight: {
     _: "1.5",
-    tablet: "2",
+    phone: "2",
   },
 })``;
 
