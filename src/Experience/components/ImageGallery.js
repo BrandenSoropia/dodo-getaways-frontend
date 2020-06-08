@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { Box, Flex, Image, Modal, Body, breakpoints } from "ui-kit";
+import { Box, Flex, Image, Modal, Body, breakpoints, Grid, Section } from "ui-kit";
 import { useClientRect } from "common/hooks";
 import { FormattedMessage } from "react-intl";
 import { isEnterPressed } from "common/keyboard-helpers";
@@ -39,7 +39,7 @@ const ImageGallery = ({ images }) => {
   const showSeeAllImagesButton = images.length > imageThreshold;
 
   return (
-    <Flex ref={ref} position="relative" as="section" marginBottom={{ _: "two", tablet: "four" }}>
+    <Section ref={ref} position="relative" as="section" marginBottom={{ _: "two", tablet: "four" }}>
       {isMobileDimensionDevice && (
         <InteractiveImage
           tabIndex="0"
@@ -59,28 +59,35 @@ const ImageGallery = ({ images }) => {
           alt={images[0]?.altText}
         />
       )}
+      {/* TODO: Set height somehow */}
       {!isMobileDimensionDevice && (
-        <Flex>
-          {images.map(({ src, altText }, idx) => (
-            <InteractiveImage
-              tabIndex="0"
-              onClick={() => {
-                setSelectedImageIdx(idx);
-              }}
-              onKeyPress={(e) => {
-                e.stopPropagation();
-
-                if (isEnterPressed(e)) {
+        <Grid
+          height={{ _: "100%", phone: "700px" }}
+          gridTemplateColumns="repeat(2, 1fr)"
+          gridTemplateRows="repeat(2, 1fr)"
+        >
+          {images.map(({ src, altText }, idx) => {
+            return (
+              <InteractiveImage
+                tabIndex="0"
+                onClick={() => {
                   setSelectedImageIdx(idx);
-                }
-              }}
-              borderRadius="round"
-              key={`image-gallery-image$-${src}`}
-              src={src}
-              alt={altText}
-            />
-          ))}
-        </Flex>
+                }}
+                onKeyPress={(e) => {
+                  e.stopPropagation();
+
+                  if (isEnterPressed(e)) {
+                    setSelectedImageIdx(idx);
+                  }
+                }}
+                borderRadius="round"
+                key={`image-gallery-image$-${src}`}
+                src={src}
+                alt={altText}
+              />
+            );
+          })}
+        </Grid>
       )}
       {showSeeAllImagesButton && (
         <Box
@@ -114,7 +121,7 @@ const ImageGallery = ({ images }) => {
           </Flex>
         )}
       </Modal>
-    </Flex>
+    </Section>
   );
 };
 
