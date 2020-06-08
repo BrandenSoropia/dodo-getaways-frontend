@@ -19,6 +19,8 @@ const borderWidths = {
 const fontSizes = {
   body: "1rem",
   bodyMobile: "1.2rem",
+  button: "1rem",
+  buttonMobile: "0.75rem",
   heading1: "2rem",
   heading1Mobile: "1.5rem",
   heading2: "1.5rem",

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { Box, Flex, Image, Modal, Body, breakpoints, Grid, Section } from "ui-kit";
+import { useIntl } from "react-intl";
+import { Flex, Image, Modal, breakpoints, Grid, Section, FlatButton } from "ui-kit";
 import { useClientRect } from "common/hooks";
-import { FormattedMessage } from "react-intl";
 import { isEnterPressed } from "common/keyboard-helpers";
 
 const DESKTOP_MORE_PHOTOS_THRESHOLD = 3;
@@ -129,6 +129,7 @@ CollageLayout.propTypes = {
  * - If more than one, show "See all photos" button. On click, opens gallery.
  */
 const ImageGallery = ({ images }) => {
+  const { formatMessage } = useIntl();
   const [selectedImageIdx, setSelectedImageIdx] = useState(null);
   const [rect, ref] = useClientRect();
 
@@ -148,19 +149,27 @@ const ImageGallery = ({ images }) => {
         imageThreshold={imageThreshold}
       />
       {showSeeAllImagesButton && (
-        <Box
+        <FlatButton
+          border="none"
           backgroundColor="darkGrey"
           position="absolute"
           left="0"
           bottom="0"
           padding={{ _: "one", phone: "two" }}
           margin="one"
-          borderRadius="pill"
+          onClick={() => {
+            setSelectedImageIdx(0);
+          }}
+          onKeyPress={(e) => {
+            e.stopPropagation();
+
+            if (isEnterPressed(e)) {
+              setSelectedImageIdx(0);
+            }
+          }}
         >
-          <Body color="white">
-            <FormattedMessage id="SEE_ALL_PHOTOS" />
-          </Body>
-        </Box>
+          {formatMessage({ id: "SEE_ALL_PHOTOS" })}
+        </FlatButton>
       )}
       <Modal
         isActive={selectedImageIdx !== null}
