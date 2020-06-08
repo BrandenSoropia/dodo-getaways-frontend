@@ -18,7 +18,7 @@ const TwoImageLayout = {
 };
 
 const ThreeImageLayout = {
-  gridTemplateColumns: "repeat(2, 1fr)",
+  gridTemplateColumns: "65% 35%",
   gridTemplateRows: "repeat(2, 1fr)",
 };
 
@@ -41,6 +41,7 @@ const SecondaryImage = styled(InteractiveImage)`
 `;
 
 const TertiaryImage = styled(InteractiveImage)`
+  grid-column-start: 2;
   grid-column-end: 2;
   grid-row-start: 2;
   grid-row-end: 3;
