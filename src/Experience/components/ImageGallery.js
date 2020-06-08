@@ -93,11 +93,7 @@ const CollageLayout = ({
   }
 
   return (
-    <Grid
-      height={{ _: "240px", phone: "480px" }}
-      width={{ _: "420px", phone: "853px" }}
-      {...layout}
-    >
+    <Grid height={{ _: "240px", phone: "360px", desktop: "480px" }} width="100%" {...layout}>
       {orderedImages}
     </Grid>
   );
