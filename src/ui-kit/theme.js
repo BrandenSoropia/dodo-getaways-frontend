@@ -2,6 +2,7 @@ const colors = {
   blue: "#1B97D9",
   white: "#FFFFFF",
   mustard: "#EDD340",
+  darkerGrey: "#1a1a1a",
   darkGrey: "#333333",
   salmon: "#ff5d5d",
   lightGrey: "#777777",
