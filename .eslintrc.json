@@ -11,7 +11,9 @@
       }
     ],
     "react/jsx-filename-extension": "off",
-    "import/no-unresolved": [2, { "ignore": ["ui-kit", "^common/", "app", "i18n", "test-utils"] }]
+    "import/no-unresolved": [2, { "ignore": ["ui-kit", "^common/", "app", "i18n", "test-utils"] }],
+    "react/jsx-props-no-spreading": "off",
+    "no-plusplus": "off"
   },
   "globals": {
     "window": "readonly",

@@ -6,12 +6,113 @@ import { useClientRect } from "common/hooks";
 import { FormattedMessage } from "react-intl";
 import { isEnterPressed } from "common/keyboard-helpers";
 
+const DESKTOP_MORE_PHOTOS_THRESHOLD = 3;
+const MOBILE_MORE_PHOTOS_THRESHOLD = 1;
+
+const OneImageLayout = {
+  gridTemplateColumns: "auto",
+};
+
+const TwoImageLayout = {
+  gridTemplateColumns: "60% 40%",
+};
+
+const ThreeImageLayout = {
+  gridTemplateColumns: "repeat(2, 1fr)",
+  gridTemplateRows: "repeat(2, 1fr)",
+};
+
 const InteractiveImage = styled(Image)`
   cursor: pointer;
 `;
 
-const DESKTOP_MORE_PHOTOS_THRESHOLD = 3;
-const MOBILE_MORE_PHOTOS_THRESHOLD = 1;
+const MainImage = styled(InteractiveImage)`
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 1;
+  grid-row-end: 3;
+`;
+
+const SecondaryImage = styled(InteractiveImage)`
+  grid-column-start: 2;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+`;
+
+const TertiaryImage = styled(InteractiveImage)`
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: 3;
+`;
+
+const orderedImageElements = [MainImage, SecondaryImage, TertiaryImage];
+
+const layouts = [OneImageLayout, TwoImageLayout, ThreeImageLayout];
+
+const CollageLayout = ({
+  images,
+  imageThreshold,
+  setSelectedImageIdx,
+  isMobileDimensionDevice,
+}) => {
+  let layout = OneImageLayout;
+
+  if (!isMobileDimensionDevice) {
+    layout = layouts[Math.min(images.length, imageThreshold) - 1];
+  }
+
+  const orderedImages = [];
+
+  for (let i = 0; i < Math.min(images.length, imageThreshold); i++) {
+    const { src, altText } = images[i];
+
+    const OrderedImage = orderedImageElements[i];
+
+    orderedImages.push(
+      <OrderedImage
+        isMobileDimensionDevice
+        tabIndex="0"
+        onClick={() => {
+          setSelectedImageIdx(i);
+        }}
+        onKeyPress={(e) => {
+          e.stopPropagation();
+
+          if (isEnterPressed(e)) {
+            setSelectedImageIdx(i);
+          }
+        }}
+        borderRadius={isMobileDimensionDevice ? null : "round"}
+        key={`image-gallery-image$-${src}`}
+        src={src}
+        alt={altText}
+      />
+    );
+  }
+
+  return (
+    <Grid
+      height={{ _: "240px", phone: "480px" }}
+      width={{ _: "420px", phone: "853px" }}
+      {...layout}
+    >
+      {orderedImages}
+    </Grid>
+  );
+};
+
+CollageLayout.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      src: PropTypes.string,
+      altText: PropTypes.string,
+    })
+  ).isRequired,
+  imageThreshold: PropTypes.number.isRequired,
+  setSelectedImageIdx: PropTypes.func.isRequired,
+  isMobileDimensionDevice: PropTypes.bool.isRequired,
+};
 
 /**
  * Clicking/tab navigation and keyboard "Enter" button press to simulate clicking image.
@@ -33,62 +134,19 @@ const ImageGallery = ({ images }) => {
 
   const isMobileDimensionDevice = (rect?.width || 0) <= breakpoints.phone;
   const imageThreshold = isMobileDimensionDevice
-    ? DESKTOP_MORE_PHOTOS_THRESHOLD
-    : MOBILE_MORE_PHOTOS_THRESHOLD;
+    ? MOBILE_MORE_PHOTOS_THRESHOLD
+    : DESKTOP_MORE_PHOTOS_THRESHOLD;
 
   const showSeeAllImagesButton = images.length > imageThreshold;
 
   return (
     <Section ref={ref} position="relative" as="section" marginBottom={{ _: "two", tablet: "four" }}>
-      {isMobileDimensionDevice && (
-        <InteractiveImage
-          tabIndex="0"
-          onClick={() => {
-            setSelectedImageIdx(0);
-          }}
-          onKeyPress={(e) => {
-            e.stopPropagation();
-
-            if (isEnterPressed(e)) {
-              setSelectedImageIdx(0);
-            }
-          }}
-          borderRadius="round"
-          key={`image-gallery-image$-${images[0]?.src}`}
-          src={images[0]?.src}
-          alt={images[0]?.altText}
-        />
-      )}
-      {/* TODO: Set height somehow */}
-      {!isMobileDimensionDevice && (
-        <Grid
-          height={{ _: "100%", phone: "700px" }}
-          gridTemplateColumns="repeat(2, 1fr)"
-          gridTemplateRows="repeat(2, 1fr)"
-        >
-          {images.map(({ src, altText }, idx) => {
-            return (
-              <InteractiveImage
-                tabIndex="0"
-                onClick={() => {
-                  setSelectedImageIdx(idx);
-                }}
-                onKeyPress={(e) => {
-                  e.stopPropagation();
-
-                  if (isEnterPressed(e)) {
-                    setSelectedImageIdx(idx);
-                  }
-                }}
-                borderRadius="round"
-                key={`image-gallery-image$-${src}`}
-                src={src}
-                alt={altText}
-              />
-            );
-          })}
-        </Grid>
-      )}
+      <CollageLayout
+        images={images}
+        isMobileDimensionDevice={isMobileDimensionDevice}
+        setSelectedImageIdx={setSelectedImageIdx}
+        imageThreshold={imageThreshold}
+      />
       {showSeeAllImagesButton && (
         <Box
           backgroundColor="darkGrey"
