@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Section, Box, HeadingOne, Span, Body } from "ui-kit";
+import { Section, HeadingOne, Span, Body } from "ui-kit";
 import { FormattedMessage } from "react-intl";
 import ImageGallery from "./components/ImageGallery";
 
 const ExperienceOverview = ({ islandName, images, catchPhrase, description }) => {
   return (
-    <Box>
+    <Section padding="two">
       <HeadingOne marginBottom="two">
         <FormattedMessage
           id="EXPLORE_ISLAND_NAME"
@@ -17,11 +17,11 @@ const ExperienceOverview = ({ islandName, images, catchPhrase, description }) =>
         />
       </HeadingOne>
       <ImageGallery images={images} />
-      <Section paddingX="one">
+      <Section>
         <HeadingOne marginBottom="one">{catchPhrase}</HeadingOne>
         <Body>{description}</Body>
       </Section>
-    </Box>
+    </Section>
   );
 };
 
