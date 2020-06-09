@@ -1,5 +1,5 @@
 import React from "react";
-import ImageGallery from "./ImageGallery";
+import ImageGallery from "./index";
 import mockImages from "../__mocks__/mock-images";
 
 export default {

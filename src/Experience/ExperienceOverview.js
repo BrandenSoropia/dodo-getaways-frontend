@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Section, HeadingOne, Span, Body } from "ui-kit";
 import { FormattedMessage } from "react-intl";
-import ImageGallery from "./components/ImageGallery";
+import ImageGallery from "./ImageGallery";
 
 const ExperienceOverview = ({ islandName, images, catchPhrase, description }) => {
   return (
