@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useIntl } from "react-intl";
-import { Flex, Image, Modal, breakpoints, Grid, Section, FlatButton, Box } from "ui-kit";
+import { Image, Modal, breakpoints, Grid, Section, FlatButton, Box } from "ui-kit";
 import { useClientRect } from "common/hooks";
 import { isEnterPressed } from "common/keyboard-helpers";
+import ImageViewerModal from "./ImageViewerModal";
 
 const DESKTOP_MORE_PHOTOS_THRESHOLD = 3;
 const MOBILE_MORE_PHOTOS_THRESHOLD = 1;
@@ -170,7 +171,7 @@ const ImageGallery = ({ images }) => {
       )}
       {/* TODO: Implement image cycle left/right */}
       {/* TODO: Disable scroll when image view open */}
-      {/* TODO: Pull out to separate component */}
+      <ImageViewerModal parentSelectedImageIdx={selectedImageIdx} images={images} />
       <Modal
         isActive={selectedImageIdx !== null}
         handleClose={() => {

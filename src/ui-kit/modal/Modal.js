@@ -23,6 +23,10 @@ const Modal = ({ children, isActive, handleClose }) => {
     }
   }, [isActive, containerRef]);
 
+  if (!isActive) {
+    return null;
+  }
+
   return (
     <Backdrop
       data-testid="modal-backdrop"
