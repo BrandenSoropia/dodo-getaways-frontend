@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useIntl } from "react-intl";
-import { Flex, Image, Modal, breakpoints, Grid, Section, FlatButton } from "ui-kit";
+import { Flex, Image, Modal, breakpoints, Grid, Section, FlatButton, Box } from "ui-kit";
 import { useClientRect } from "common/hooks";
 import { isEnterPressed } from "common/keyboard-helpers";
 
@@ -168,6 +168,9 @@ const ImageGallery = ({ images }) => {
           {formatMessage({ id: "SEE_ALL_PHOTOS" })}
         </FlatButton>
       )}
+      {/* TODO: Implement image cycle left/right */}
+      {/* TODO: Disable scroll when image view open */}
+      {/* TODO: Pull out to separate component */}
       <Modal
         isActive={selectedImageIdx !== null}
         handleClose={() => {
@@ -175,14 +178,15 @@ const ImageGallery = ({ images }) => {
         }}
       >
         {selectedImageIdx !== null && (
-          <Flex width="100%" height="100%" justifyContent="center" alignItems="center">
-            <Image
-              src={images?.[selectedImageIdx]?.src}
-              alt={images?.[selectedImageIdx]?.altText}
-              width="75%"
-              height="75%"
-            />
-          </Flex>
+          <Box
+            width="100%"
+            height="100%"
+            background={`url(${images?.[selectedImageIdx]?.src})`}
+            title={images?.[selectedImageIdx]?.altText}
+            backgroundSize={{ _: "100%", phone: "75%" }}
+            backgroundPosition="center center"
+            backgroundRepeat="no-repeat"
+          />
         )}
       </Modal>
     </Section>
