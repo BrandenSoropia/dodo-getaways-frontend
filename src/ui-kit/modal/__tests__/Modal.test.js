@@ -1,4 +1,3 @@
-// __tests__/fetch.test.js
 import React, { useState } from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { Box, Body } from "ui-kit";
@@ -43,19 +42,25 @@ describe("Modal tests", () => {
   it("should support mouse events to open and close", () => {
     const { getByText, getByTestId } = render(<Wrapper />);
 
-    expect(getByText("I'm inside a modal!")).not.toBeVisible();
+    expect(() => {
+      getByText("I'm inside a modal!");
+    }).toThrow();
 
     userEvent.click(getByText("Open Modal"));
     expect(getByText("I'm inside a modal!")).toBeVisible();
 
     userEvent.click(getByTestId("modal-backdrop"));
-    expect(getByText("I'm inside a modal!")).not.toBeVisible();
+    expect(() => {
+      getByText("I'm inside a modal!");
+    }).toThrow();
   });
 
   it("should support keyboard events to open and close", () => {
     const { getByText, getByTestId } = render(<Wrapper />);
 
-    expect(getByText("I'm inside a modal!")).not.toBeVisible();
+    expect(() => {
+      getByText("I'm inside a modal!");
+    }).toThrow();
     expect(document.body).toHaveFocus();
 
     userEvent.tab();
@@ -66,6 +71,8 @@ describe("Modal tests", () => {
     expect(getByText("I'm inside a modal!")).toBeVisible();
 
     fireEvent.keyDown(getByTestId("modal-backdrop"), { key: "Escape", code: "Escape" });
-    expect(getByText("I'm inside a modal!")).not.toBeVisible();
+    expect(() => {
+      getByText("I'm inside a modal!");
+    }).toThrow();
   });
 });

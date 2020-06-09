@@ -13,7 +13,7 @@ const AllTheProviders = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <IntlProvider locale="en-US" messages={messages}>
+        <IntlProvider locale="en-US" messages={messages["en-US"]}>
           {children}
         </IntlProvider>
       </Provider>

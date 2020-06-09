@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { Box } from "ui-kit";
+import { Box, Dialog } from "ui-kit";
 import { isEscapePressed } from "common/keyboard-helpers";
 
 const Backdrop = styled(Box)`
@@ -28,35 +28,37 @@ const Modal = ({ children, isActive, handleClose }) => {
   }
 
   return (
-    <Backdrop
-      data-testid="modal-backdrop"
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...(isActive && { tabIndex: "-1" })}
-      ref={containerRef}
-      position="fixed"
-      top="0"
-      right="0"
-      bottom="0"
-      left="0"
-      width="100vw"
-      height="100vh"
-      zIndex="modal"
-      background="lightGrey"
-      display={isActive ? "block" : "none"}
-      onClick={(e) => {
-        e.stopPropagation();
-        handleClose();
-      }}
-      onKeyDown={(e) => {
-        e.stopPropagation();
-
-        if (isEscapePressed(e)) {
+    <Dialog open={isActive} width="100vw" height="100vh">
+      <Backdrop
+        ref={containerRef}
+        role="button"
+        tabIndex="0"
+        data-testid="modal-backdrop"
+        position="fixed"
+        top="0"
+        right="0"
+        bottom="0"
+        left="0"
+        width="100%"
+        height="100%"
+        zIndex="modal"
+        background="lightGrey"
+        display={isActive ? "block" : "none"}
+        onClick={(e) => {
+          e.stopPropagation();
           handleClose();
-        }
-      }}
-    >
-      {children}
-    </Backdrop>
+        }}
+        onKeyDown={(e) => {
+          e.stopPropagation();
+
+          if (isEscapePressed(e)) {
+            handleClose();
+          }
+        }}
+      >
+        {children}
+      </Backdrop>
+    </Dialog>
   );
 };
 

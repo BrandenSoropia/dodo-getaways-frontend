@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { useIntl } from "react-intl";
-import { Image, Modal, breakpoints, Grid, Section, FlatButton, Box } from "ui-kit";
+import { FormattedMessage } from "react-intl";
+import { Image, breakpoints, Grid, Section, FlatButton } from "ui-kit";
 import { useClientRect } from "common/hooks";
 import { isEnterPressed } from "common/keyboard-helpers";
 import ImageViewerModal from "./ImageViewerModal";
@@ -23,7 +23,7 @@ const ThreeImageLayout = {
   gridTemplateRows: "repeat(2, 1fr)",
 };
 
-const InteractiveImage = styled(Image)`
+const InteractiveImage = styled(Image).attrs({ role: "button" })`
   cursor: pointer;
 `;
 
@@ -127,7 +127,6 @@ CollageLayout.propTypes = {
  * - If more than one, show "See all photos" button. On click, opens gallery.
  */
 const ImageGallery = ({ images }) => {
-  const { formatMessage } = useIntl();
   const [selectedImageIdx, setSelectedImageIdx] = useState(null);
   const [rect, ref] = useClientRect();
 
@@ -166,30 +165,15 @@ const ImageGallery = ({ images }) => {
             }
           }}
         >
-          {formatMessage({ id: "SEE_ALL_PHOTOS" })}
+          <FormattedMessage id="SEE_ALL_PHOTOS" />
         </FlatButton>
       )}
-      {/* TODO: Implement image cycle left/right */}
       {/* TODO: Disable scroll when image view open */}
-      <ImageViewerModal parentSelectedImageIdx={selectedImageIdx} images={images} />
-      <Modal
-        isActive={selectedImageIdx !== null}
-        handleClose={() => {
-          setSelectedImageIdx(null);
-        }}
-      >
-        {selectedImageIdx !== null && (
-          <Box
-            width="100%"
-            height="100%"
-            background={`url(${images?.[selectedImageIdx]?.src})`}
-            title={images?.[selectedImageIdx]?.altText}
-            backgroundSize={{ _: "100%", phone: "75%" }}
-            backgroundPosition="center center"
-            backgroundRepeat="no-repeat"
-          />
-        )}
-      </Modal>
+      <ImageViewerModal
+        parentSelectedImageIdx={selectedImageIdx}
+        images={images}
+        setParentSelectedImageIdx={setSelectedImageIdx}
+      />
     </Section>
   );
 };
