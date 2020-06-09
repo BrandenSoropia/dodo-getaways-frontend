@@ -24,6 +24,9 @@
     "afterEach": "readonly",
     "it": "readonly",
     "expect": "readonly",
-    "alert": "readonly"
+    "alert": "readonly",
+    "beforeEach": "readonly",
+    "jest": "readonly",
+    "Element": "readonly"
   }
 }

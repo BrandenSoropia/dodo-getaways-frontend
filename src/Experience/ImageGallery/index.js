@@ -134,7 +134,6 @@ const ImageGallery = ({ images }) => {
   const imageThreshold = isMobileDimensionDevice
     ? MOBILE_MORE_PHOTOS_THRESHOLD
     : DESKTOP_MORE_PHOTOS_THRESHOLD;
-
   const showSeeAllImagesButton = images.length > imageThreshold;
 
   return (

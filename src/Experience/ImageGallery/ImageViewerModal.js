@@ -34,6 +34,7 @@ const ImageViewerModal = ({ parentSelectedImageIdx, setParentSelectedImageIdx, i
       {isActive && (
         <Box position="relative" height="100%" width="100%">
           <ImageCycleButton
+            name="previous"
             bottom={0}
             left={0}
             disabled={!canGoToPreviousImage}
@@ -57,6 +58,7 @@ const ImageViewerModal = ({ parentSelectedImageIdx, setParentSelectedImageIdx, i
             backgroundRepeat="no-repeat"
           />
           <ImageCycleButton
+            name="next"
             bottom={0}
             right={0}
             disabled={!canGoToNextImage}

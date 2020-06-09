@@ -4,7 +4,7 @@ import { render } from "@testing-library/react";
 import { ThemeProvider } from "styled-components";
 import { IntlProvider } from "react-intl";
 import { Provider } from "react-redux";
-import theme from "ui-kit/theme";
+import { theme } from "ui-kit";
 import messages from "i18n";
 import store from "app/store";
 
