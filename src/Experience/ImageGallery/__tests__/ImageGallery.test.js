@@ -15,7 +15,7 @@ describe("ImageGallery tests", () => {
   });
 
   it("should support single image gallery view with disabled image cycling controls", () => {
-    const { getByRole, getByTestId } = render(<ImageGallery images={[mockImages[0]]} />);
+    const { getByRole, getByTestId, getByText } = render(<ImageGallery images={[mockImages[0]]} />);
 
     expect(() => {
       getByRole("dialog");
@@ -26,8 +26,8 @@ describe("ImageGallery tests", () => {
 
     expect(getByRole("dialog", { open: true })).toBeVisible();
 
-    expect(getByRole("button", { name: "Previous" })).toBeDisabled();
-    expect(getByRole("button", { name: "Next" })).toBeDisabled();
+    expect(getByText("Previous")).toBeDisabled();
+    expect(getByText("Next")).toBeDisabled();
 
     fireEvent.click(getByTestId("modal-backdrop"));
 
