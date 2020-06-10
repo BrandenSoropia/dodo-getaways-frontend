@@ -44,7 +44,33 @@ const TertiaryImage = styled(InteractiveImage)`
 
 const orderedImageElements = [MainImage, SecondaryImage, TertiaryImage];
 
-const layouts = [OneImageLayout, TwoImageLayout, ThreeImageLayout];
+// Hold border styles for each image, different settings when 1 - 3 images to show
+const allLayoutBorderStyles = {
+  1: null,
+  2: [
+    { borderTopLeftRadius: "round", borderBottomLeftRadius: "round" },
+    {
+      borderTopRightRadius: "round",
+      borderBottomRightRadius: "round",
+    },
+  ],
+  3: [
+    { borderTopLeftRadius: "round", borderBottomLeftRadius: "round" },
+    {
+      borderTopRightRadius: "round",
+    },
+    {
+      borderBottomRightRadius: "round",
+    },
+  ],
+};
+
+// Hold grid layouts, different settings when 1 - 3 images to show
+const allGridLayouts = {
+  1: OneImageLayout,
+  2: TwoImageLayout,
+  3: ThreeImageLayout,
+};
 
 const CollageLayout = ({
   images,
@@ -52,18 +78,23 @@ const CollageLayout = ({
   setSelectedImageIdx,
   isMobileDimensionDevice,
 }) => {
-  let layout = OneImageLayout;
+  let gridLayout = OneImageLayout;
+
+  // Recall: Will only ever be 1 to 3 images!
+  const numberOfImagesToShow = Math.min(images.length, imageThreshold);
 
   if (!isMobileDimensionDevice) {
-    layout = layouts[Math.min(images.length, imageThreshold) - 1];
+    gridLayout = allGridLayouts[numberOfImagesToShow];
   }
 
   const orderedImages = [];
+  const layoutBorderStyles = allLayoutBorderStyles[numberOfImagesToShow];
 
   for (let i = 0; i < Math.min(images.length, imageThreshold); i++) {
     const { src, altText } = images[i];
 
     const OrderedImage = orderedImageElements[i];
+    const borderStyles = layoutBorderStyles?.[i] ?? {};
 
     orderedImages.push(
       <OrderedImage
@@ -79,7 +110,7 @@ const CollageLayout = ({
             setSelectedImageIdx(i);
           }
         }}
-        borderRadius={isMobileDimensionDevice ? null : "round"}
+        {...borderStyles}
         key={`image-gallery-image$-${src}`}
         src={src}
         alt={altText}
@@ -88,7 +119,7 @@ const CollageLayout = ({
   }
 
   return (
-    <Grid height={{ _: "240px", phone: "360px", desktop: "480px" }} width="100%" {...layout}>
+    <Grid height={{ _: "240px", phone: "360px", desktop: "480px" }} width="100%" {...gridLayout}>
       {orderedImages}
     </Grid>
   );
