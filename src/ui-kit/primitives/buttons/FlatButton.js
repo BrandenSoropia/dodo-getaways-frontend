@@ -9,6 +9,11 @@ const FlatButton = styled(Button).attrs({
   &:hover {
     background-color: ${({ theme }) => theme.colors.darkerGrey};
   }
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.lightGrey};
+    color: ${({ theme }) => theme.colors.darkGrey};
+    cursor: not-allowed;
+  }
 `;
 
 export default FlatButton;

@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { Modal, Box, FlatButton } from "ui-kit";
+import { Modal, Box, FlatButton, Body } from "ui-kit";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { FormattedMessage } from "react-intl";
 
 const ImageCycleButton = styled(FlatButton).attrs({
   height: { _: "50px", phone: "100%" },
+  width: "50px",
   type: "button",
-  alignSelf: "flex-end",
   position: "absolute",
+  zIndex: "modal",
 })``;
+
+// Used to provide a11y button text but hide it visually for the chevron cycle buttons
+const HiddenA11yText = styled(Body).attrs({ fontSize: 0 })``;
 
 const ImageViewerModal = ({ parentSelectedImageIdx, setParentSelectedImageIdx, images }) => {
   const [selectedImageIdx, setSelectedImageIdx] = useState(parentSelectedImageIdx);
@@ -46,7 +53,10 @@ const ImageViewerModal = ({ parentSelectedImageIdx, setParentSelectedImageIdx, i
               }
             }}
           >
-            Previous
+            <FontAwesomeIcon icon={faChevronLeft} />
+            <HiddenA11yText>
+              <FormattedMessage id="PREVIOUS" />
+            </HiddenA11yText>
           </ImageCycleButton>
           <Box
             width="100%"
@@ -70,7 +80,10 @@ const ImageViewerModal = ({ parentSelectedImageIdx, setParentSelectedImageIdx, i
               }
             }}
           >
-            Next
+            <FontAwesomeIcon icon={faChevronRight} />
+            <HiddenA11yText>
+              <FormattedMessage id="NEXT" />
+            </HiddenA11yText>
           </ImageCycleButton>
         </Box>
       )}
